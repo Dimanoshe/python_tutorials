@@ -1,0 +1,86 @@
+def compress_view(input, n):
+    '''
+    input: Входные данные
+    n: Глубина вложенности
+    '''
+    if type(input) == list:
+        for i in input:
+            compress_view(i, n)
+
+    elif type(input) == dict:
+        for i in input.items():
+            if i[0] != 'children':
+                print(n * ' ', i[0])  
+            n +=1
+            compress_view(i[1], n)
+
+    elif type(input) == str:
+        print(n * ' ', input)
+
+
+if __name__ == '__main__':
+    n = 0
+    tariff_info = {
+    "root":{
+        "children":[
+            {
+                "Внутрисетевой роуминг":{
+                "children":[
+                    {
+                        "Internet":{
+                            "children":[
+                            "Значение A"
+                            ]
+                        }
+                    },
+                    {
+                        "MMS":{
+                            "children":[
+                            "Входящие: 0.00",
+                            "Исходящие: 6.45",
+                            {
+                                "Междугородние":{
+                                    "children":[
+                                        "Входящие: 0.00",
+                                        {
+                                        "Исходящие":{
+                                            "children":[
+                                                "Значение B"
+                                            ]
+                                        }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "Местные":{
+                                    "children":[
+                                        "Входящие: 0.00"
+                                    ]
+                                }
+                            }
+                            ]
+                        }
+                    }
+                ]
+                }
+            },
+            {
+                "Домашняя сеть":{
+                "children":[
+                    {
+                        "Internet":{
+                            "children":[
+                            "Значение C"
+                            ]
+                        }
+                    }
+                ]
+                }
+            }
+        ]
+    }
+    }
+
+    compress_view(tariff_info, n)
+    # print(result)
